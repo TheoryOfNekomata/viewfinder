@@ -30,7 +30,7 @@
 	},
 	"name": "@tesseract-design/viewfinder",
 	"description": "Layout scaffolding for Web apps.",
-	"author": "TheoryOfNekomata",
+	"author": "TheoryOfNekomata <allan.crisostomo@outlook.com>",
 	"module": "dist/viewfinder.esm.js",
 	"size-limit": [
 		{
