@@ -1,26 +1,27 @@
-import * as React from 'react';
-import styled, {createGlobalStyle} from 'styled-components';
-import TopBar from '../../widgets/TopBar';
+import * as React from 'react'
+import styled, {createGlobalStyle} from 'styled-components'
+import TopBar from '../../widgets/TopBar'
+import {applyBackgroundColor, minWidthFactor} from '../../utilities/mixins'
+import {configVar, loadConfig} from '../../utilities/helpers'
+
+const Config = createGlobalStyle({
+	...loadConfig(),
+})
 
 const DisableScrolling = createGlobalStyle({
 	'body': {
 		overflow: 'hidden',
-		'@media (min-width: 1080px)': {
+		...minWidthFactor(3)({
 			overflow: 'auto',
-		},
+		}),
 	},
-})
-
-const LayoutBase = styled('div')({
-	'--width-base': 'var(--width-base, 360px)',
-	'--height-topbar': 'var(--height-topbar, 4rem)',
 })
 
 const ContentBase = styled('main')({
 	boxSizing: 'border-box',
-	'@media (min-width: 1080px)': {
-		paddingLeft: 'calc(50% - var(--width-base, 360px) * 0.5)',
-	},
+	...minWidthFactor(3)({
+		paddingLeft: `calc(50% - ${configVar('base-width')} * 0.5)`,
+	}),
 })
 
 const SidebarOverflow = styled('div')({
@@ -41,15 +42,12 @@ const SidebarBase = styled('div')({
 	left: '-100%',
 	width: '100%',
 	height: '100%',
-	backgroundColor: 'var(--color-bg, white)',
 	overflow: 'hidden',
-	'@media (prefers-color-scheme: dark)': {
-		backgroundColor: 'var(--color-bg, black)',
-	},
-	'@media (min-width: 1080px)': {
-		width: 'calc(50% - var(--width-base, 360px) * 0.5)',
+	...applyBackgroundColor(),
+	...minWidthFactor(3)({
+		width: `calc(50% - ${configVar('base-width')} * 0.5)`,
 		left: 0,
-	},
+	}),
 })
 
 const OpenSidebarBase = styled(SidebarBase)({
@@ -60,11 +58,11 @@ export const SidebarContainer = styled('div')({
 	margin: '0 auto',
 	padding: '0 1rem',
 	boxSizing: 'border-box',
-	maxWidth: 'calc(var(--width-base, 360px) * 2)',
-	'@media (min-width: 1080px)': {
-		width: 'var(--width-base, 360px)',
+	maxWidth: `calc(${configVar('base-width')} * 2)`,
+	...minWidthFactor(3)({
+		width: `${configVar('base-width')}`,
 		marginRight: 0,
-	},
+	}),
 })
 
 export const ContentContainer = styled('div')({
@@ -72,12 +70,12 @@ export const ContentContainer = styled('div')({
 	boxSizing: 'border-box',
 
 	width: '100%',
-	maxWidth: 'calc(var(--width-base, 360px) * 2)',
+	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	marginRight: 'auto',
 	marginLeft: 'auto',
-	'@media (min-width: 1080px)': {
+	...minWidthFactor(3)({
 		marginLeft: 0,
-	},
+	}),
 })
 
 type Props = {
@@ -101,7 +99,8 @@ export const Layout: React.FC<Props> = ({
 	const LeftSidebarComponent = sidebarMainOpen ? OpenSidebarBase : SidebarBase
 
 	return (
-		<LayoutBase>
+		<>
+			<Config />
 			{
 				sidebarMainOpen
 				&& (
@@ -124,6 +123,6 @@ export const Layout: React.FC<Props> = ({
 			<ContentBase>
 				{children}
 			</ContentBase>
-		</LayoutBase>
+		</>
 	)
 }

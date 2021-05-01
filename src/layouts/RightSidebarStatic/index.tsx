@@ -1,22 +1,22 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import TopBar from '../../widgets/TopBar';
+import * as React from 'react'
+import styled, {createGlobalStyle} from 'styled-components';
+import TopBar from '../../widgets/TopBar'
+import {applyBackgroundColor, minWidthFactor} from '../../utilities/mixins'
+import {configVar, loadConfig} from '../../utilities/helpers'
 
-const LayoutBase = styled('div')({
-	'--width-base': 'var(--width-base, 360px)',
-	'--height-topbar': 'var(--height-topbar, 4rem)',
+const Config = createGlobalStyle({
+	...loadConfig(),
 })
 
 const ContentBase = styled('main')({
 	boxSizing: 'border-box',
-	'@media (min-width: 1080px)': {
-		paddingRight: 'calc(50% - var(--width-base, 360px) * 0.5)',
-	},
+	...minWidthFactor(3)({
+		paddingRight: `calc(50% - ${configVar('base-width')} * 0.5)`,
+	}),
 })
 
 const SidebarBase = styled('div')({
 	boxSizing: 'border-box',
-	backgroundColor: 'var(--color-bg, white)',
 	// prevent collapse of margin
 	'::after': {
 		content: "''",
@@ -25,39 +25,37 @@ const SidebarBase = styled('div')({
 		marginTop: -1,
 		boxSizing: 'border-box',
 	},
-	'@media (prefers-color-scheme: dark)': {
-		backgroundColor: 'var(--color-bg, black)',
-	},
-	'@media (min-width: 1080px)': {
+	...applyBackgroundColor(),
+	...minWidthFactor(3)({
 		position: 'absolute',
 		top: 0,
 		right: 0,
-		width: 'calc(50% - var(--width-base, 360px) * 0.5)',
+		width: `calc(50% - ${configVar('base-width')} * 0.5)`,
 		height: '100%',
-	},
+	}),
 })
 
 export const SidebarContainer = styled('div')({
 	padding: '0 1rem',
 	boxSizing: 'border-box',
 	width: '100%',
-	maxWidth: 'calc(var(--width-base, 360px) * 2)',
+	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	margin: '0 auto',
-	'@media (min-width: 1080px)': {
-		width: 'var(--width-base, 360px)',
+	...minWidthFactor(3)({
+		width: `${configVar('base-width')}`,
 		marginLeft: 0,
-	},
+	}),
 })
 
 export const ContentContainer = styled('div')({
 	padding: '0 1rem',
 	boxSizing: 'border-box',
 	width: '100%',
-	maxWidth: 'calc(var(--width-base, 360px) * 2)',
+	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	margin: '0 auto',
-	'@media (min-width: 1080px)': {
+	...minWidthFactor(3)({
 		marginRight: 0,
-	},
+	}),
 })
 
 type Props = {
@@ -75,7 +73,8 @@ export const Layout: React.FC<Props> = ({
 	children,
 }) => {
 	return (
-		<LayoutBase>
+		<>
+			<Config />
 			<TopBar
 				wide
 				brand={brand}
@@ -89,6 +88,6 @@ export const Layout: React.FC<Props> = ({
 			<SidebarBase>
 				{sidebarMain}
 			</SidebarBase>
-		</LayoutBase>
+		</>
 	)
 }

@@ -1,5 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import {applyBackgroundColor, minWidthFactor} from '../../utilities/mixins'
+import {configVar} from '../../utilities/helpers'
 
 const Base = styled('div')({
 	position: 'fixed',
@@ -7,29 +9,26 @@ const Base = styled('div')({
 	left: 0,
 	width: '100%',
 	height: 'var(--height-topbar, 4rem)',
-	backgroundColor: 'var(--color-bg, white)',
 	zIndex: 2,
-	'@media (prefers-color-scheme: dark)': {
-		backgroundColor: 'var(--color-bg, black)',
-	},
+	...applyBackgroundColor(),
 	'~ *': {
 		paddingTop: 'var(--height-topbar, 4rem)',
 	},
 	'~ main ~ *': {
 		paddingTop: 0,
 	},
-	'@media (min-width: 1080px)': {
+	...minWidthFactor(3)({
 		'~ main ~ *': {
 			paddingTop: 'var(--height-topbar, 4rem)',
 		},
-	},
+	}),
 })
 
 const Container = styled('div')({
 	padding: '0 1rem',
 	boxSizing: 'border-box',
 	margin: '0 auto',
-	maxWidth: 'calc(var(--width-base, 360px) * 2)',
+	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	width: '100%',
 	height: '100%',
 	display: 'flex',
@@ -37,9 +36,9 @@ const Container = styled('div')({
 })
 
 const WideContainer = styled(Container)({
-	'@media (min-width: 1080px)': {
-		maxWidth: 'calc(var(--width-base, 360px) * 3)',
-	},
+	...minWidthFactor(3)({
+		maxWidth: `calc(${configVar('base-width')} * 3)`,
+	}),
 })
 
 const BrandContainer = styled('div')({
@@ -60,9 +59,9 @@ const ActionContainer = styled('div')({
 	justifyContent: 'flex-end',
 	height: '100%',
 	whiteSpace: 'nowrap',
-	'@media (min-width: 720px)': {
+	...minWidthFactor(2)({
 		minWidth: '8rem',
-	},
+	}),
 })
 
 const LinkContainer = styled('div')({
@@ -77,10 +76,10 @@ const LinkContainer = styled('div')({
 })
 
 const MenuLinkContainer = styled(LinkContainer)({
-	'@media (min-width: 1080px)': {
+	...minWidthFactor(3)({
 		position: 'absolute',
 		left: -999999,
-	},
+	}),
 })
 
 type Props = {

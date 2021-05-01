@@ -1,10 +1,10 @@
 import * as React from 'react'
-import styled from 'styled-components';
-import TopBar from '../../widgets/TopBar';
+import styled, { createGlobalStyle } from 'styled-components'
+import TopBar from '../../widgets/TopBar'
+import {configVar, loadConfig} from '../../utilities/helpers'
 
-const LayoutBase = styled('div')({
-	'--width-base': 'var(--width-base, 360px)',
-	'--height-topbar': 'var(--height-topbar, 4rem)',
+const Config = createGlobalStyle({
+	...loadConfig(),
 })
 
 const ContentBase = styled('main')({
@@ -15,7 +15,7 @@ export const ContentContainer = styled('div')({
 	padding: '0 1rem',
 	boxSizing: 'border-box',
 	margin: '0 auto',
-	maxWidth: 'calc(var(--width-base, 360px) * 2)',
+	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	width: '100%',
 })
 
@@ -32,7 +32,8 @@ export const Layout: React.FC<Props> = ({
 	children,
 }) => {
 	return (
-		<LayoutBase>
+		<>
+			<Config />
 			<TopBar
 				brand={brand}
 				userLink={userLink}
@@ -42,6 +43,6 @@ export const Layout: React.FC<Props> = ({
 			<ContentBase>
 				{children}
 			</ContentBase>
-		</LayoutBase>
+		</>
 	)
 }
