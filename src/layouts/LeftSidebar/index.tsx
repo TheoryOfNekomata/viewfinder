@@ -108,7 +108,7 @@ export const Layout: React.FC<Props> = ({
 				)
 			}
 			<TopBar
-				wide
+				span="wide"
 				brand={brand}
 				menuLink={menuLink}
 				userLink={userLink}

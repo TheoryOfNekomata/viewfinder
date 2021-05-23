@@ -350,14 +350,24 @@ export const Layout: React.FC<Props> = ({
 				)
 			}
 			<>
-				<TopBar
-					wide
-					brand={brand}
-					menuLink={sidebarMain ? menuLink : undefined}
-					userLink={userLink}
-				>
-					{topBarCenter}
-				</TopBar>
+				{
+					(
+						brand
+						|| userLink
+						|| topBarCenter
+						|| sidebarMain
+					)
+					&& (
+						<TopBar
+							span="wide"
+							brand={brand}
+							menuLink={sidebarMain ? menuLink : undefined}
+							userLink={userLink}
+						>
+							{topBarCenter}
+						</TopBar>
+					)
+				}
 				<SidebarBase>
 					<SidebarMenu>
 						<SidebarMenuSize>

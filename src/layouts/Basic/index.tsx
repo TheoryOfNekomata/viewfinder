@@ -34,12 +34,21 @@ export const Layout: React.FC<Props> = ({
 	return (
 		<>
 			<Config />
-			<TopBar
-				brand={brand}
-				userLink={userLink}
-			>
-				{topBarCenter}
-			</TopBar>
+			{
+				(
+					brand
+					|| userLink
+					|| topBarCenter
+				)
+				&& (
+					<TopBar
+						brand={brand}
+						userLink={userLink}
+					>
+						{topBarCenter}
+					</TopBar>
+				)
+			}
 			<ContentBase>
 				{children}
 			</ContentBase>

@@ -35,6 +35,10 @@ const Container = styled('div')({
 	alignItems: 'center',
 })
 
+const NarrowContainer = styled(Container)({
+	maxWidth: configVar('base-width'),
+})
+
 const WideContainer = styled(Container)({
 	...minWidthFactor(3)({
 		maxWidth: `calc(${configVar('base-width')} * 3)`,
@@ -82,21 +86,27 @@ const MenuLinkContainer = styled(LinkContainer)({
 	}),
 })
 
+const CONTAINER_COMPONENTS = {
+	narrow: NarrowContainer,
+	normal: Container,
+	wide: WideContainer,
+}
+
 type Props = {
-	wide?: boolean,
+	span?: keyof typeof CONTAINER_COMPONENTS,
 	brand?: React.ReactNode,
 	menuLink?: React.ReactNode,
 	userLink?: React.ReactNode,
 }
 
 const TopBar: React.FC<Props> = ({
-	wide,
+	span = 'normal',
 	brand,
 	menuLink,
 	userLink,
 	children,
 }) => {
-	const ContainerComponent = wide ? WideContainer : Container
+	const { [span as keyof typeof CONTAINER_COMPONENTS]: ContainerComponent = Container } = CONTAINER_COMPONENTS
 	return (
 		<Base>
 			<ContainerComponent>
