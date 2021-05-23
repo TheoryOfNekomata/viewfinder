@@ -296,7 +296,7 @@ export type MenuItem = BaseMenuItem & {
 
 type Props = {
 	brand?: React.ReactNode,
-	sidebarMain: React.ReactChild,
+	sidebarMain?: React.ReactChild,
 	sidebarMainOpen?: boolean,
 	sidebarMenuItems: MenuItem[],
 	moreItemsOpen?: boolean,
@@ -353,7 +353,7 @@ export const Layout: React.FC<Props> = ({
 				<TopBar
 					wide
 					brand={brand}
-					menuLink={menuLink}
+					menuLink={sidebarMain ? menuLink : undefined}
 					userLink={userLink}
 				>
 					{topBarCenter}
@@ -404,13 +404,21 @@ export const Layout: React.FC<Props> = ({
 									</MoreSecondarySidebarMenuGroup>
 								</MoreItemsScroll>
 							</MoreItemsComponent>
-							<MoreToggleSidebarMenuItem>
-								<SidebarMenuItem>
-									<LinkComponent
-										{...moreLinkMenuItem}
-									/>
-								</SidebarMenuItem>
-							</MoreToggleSidebarMenuItem>
+							{
+								(
+									morePrimarySidebarMenuItems.length > 0
+									|| moreSecondarySidebarMenuItems.length > 0
+								)
+								&& (
+									<MoreToggleSidebarMenuItem>
+										<SidebarMenuItem>
+											<LinkComponent
+												{...moreLinkMenuItem}
+											/>
+										</SidebarMenuItem>
+									</MoreToggleSidebarMenuItem>
+								)
+							}
 							{
 								visibleSecondarySidebarMenuItems.length > 0
 								&& (
@@ -429,9 +437,14 @@ export const Layout: React.FC<Props> = ({
 							}
 						</SidebarMenuSize>
 					</SidebarMenu>
-					<SidebarMainComponent>
-						{sidebarMain}
-					</SidebarMainComponent>
+					{
+						(sidebarMain as unknown)
+						&& (
+							<SidebarMainComponent>
+								{sidebarMain}
+							</SidebarMainComponent>
+						)
+					}
 				</SidebarBase>
 				<ContentBase>
 					{children}

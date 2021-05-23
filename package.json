@@ -1,12 +1,30 @@
 {
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
 	"files": [
-		"dist",
-		"src"
+		"dist"
 	],
+	"publishing": {
+		"github": {
+			"repository": "https://github.com/TheoryOfNekomata/viewfinder.git",
+			"publishConfig": {
+				"registry": "https://npm.pkg.github.com"
+			}
+		},
+		"master": {
+			"repository": "https://code.modal.sh/TheoryOfNekomata/viewfinder.git",
+			"publishConfig": {
+				"registry": "https://js.pack.modal.sh"
+			}
+		},
+		"npm": {
+			"publishConfig": {
+				"registry": "https://registry.npmjs.com"
+			}
+		}
+	},
 	"engines": {
 		"node": ">=10"
 	},
@@ -28,7 +46,7 @@
 			"pre-commit": "tsdx lint"
 		}
 	},
-	"name": "@tesseract-design/viewfinder",
+	"name": "@theoryofnekomata/viewfinder",
 	"description": "Layout scaffolding for Web apps.",
 	"author": "TheoryOfNekomata <allan.crisostomo@outlook.com>",
 	"module": "dist/viewfinder.esm.js",
