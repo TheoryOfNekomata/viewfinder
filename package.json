@@ -1,5 +1,5 @@
 {
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
@@ -78,6 +78,8 @@
 		"scaffolding",
 		"template",
 		"react",
-		"layout"
+		"layout",
+		"design",
+		"design-system"
 	]
 }

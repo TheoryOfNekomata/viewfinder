@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import {applyBackgroundColor, minWidthFactor} from '../../utilities/mixins'
+import {minWidthFactor} from '../../utilities/mixins';
 import {configVar} from '../../utilities/helpers'
 
 const Base = styled('div')({
@@ -10,18 +10,18 @@ const Base = styled('div')({
 	width: '100%',
 	height: 'var(--height-topbar, 4rem)',
 	zIndex: 2,
-	...applyBackgroundColor(),
+	backgroundColor: 'var(--color-bg, white)',
 	'~ *': {
 		paddingTop: 'var(--height-topbar, 4rem)',
 	},
 	'~ main ~ *': {
 		paddingTop: 0,
 	},
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		'~ main ~ *': {
 			paddingTop: 'var(--height-topbar, 4rem)',
 		},
-	}),
+	},
 })
 
 const Container = styled('div')({
@@ -40,9 +40,9 @@ const NarrowContainer = styled(Container)({
 })
 
 const WideContainer = styled(Container)({
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		maxWidth: `calc(${configVar('base-width')} * 3)`,
-	}),
+	},
 })
 
 const BrandContainer = styled('div')({
@@ -63,9 +63,9 @@ const ActionContainer = styled('div')({
 	justifyContent: 'flex-end',
 	height: '100%',
 	whiteSpace: 'nowrap',
-	...minWidthFactor(2)({
+	[minWidthFactor(2)]: {
 		minWidth: '8rem',
-	}),
+	},
 })
 
 const LinkContainer = styled('div')({
@@ -80,10 +80,10 @@ const LinkContainer = styled('div')({
 })
 
 const MenuLinkContainer = styled(LinkContainer)({
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		position: 'absolute',
 		left: -999999,
-	}),
+	},
 })
 
 const CONTAINER_COMPONENTS = {

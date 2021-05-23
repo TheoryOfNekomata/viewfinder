@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled, { createGlobalStyle } from 'styled-components'
 import TopBar from '../../widgets/TopBar'
-import {applyBackgroundColor, minWidthFactor} from '../../utilities/mixins'
+import {minWidthFactor} from '../../utilities/mixins';
 import {configVar, loadConfig} from '../../utilities/helpers'
 
 const Config = createGlobalStyle({
@@ -11,19 +11,19 @@ const Config = createGlobalStyle({
 const DisableScrolling = createGlobalStyle({
 	'body': {
 		overflow: 'hidden',
-		...minWidthFactor(3)({
+		[minWidthFactor(3)]: {
 			overflow: 'auto',
-		}),
+		},
 	},
 })
 
 const ContentBase = styled('main')({
 	boxSizing: 'border-box',
 	paddingBottom: 'var(--size-menu, 4rem)',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		paddingLeft: `calc(50% - ${configVar('base-width')} * 0.5)`,
 		paddingBottom: 0,
-	}),
+	},
 })
 
 const SidebarBase = styled('div')({
@@ -31,15 +31,15 @@ const SidebarBase = styled('div')({
 	overflow: 'hidden',
 	display: 'contents',
 	left: `calc(${configVar('base-width')} * -1)`,
-	...applyBackgroundColor(),
-	...minWidthFactor(3)({
+	backgroundColor: 'var(--color-bg, white)',
+	[minWidthFactor(3)]: {
 		position: 'fixed',
 		top: 0,
 		left: 0,
 		width: `calc(50% - ${configVar('base-width')} * 0.5)`,
 		height: '100%',
 		display: 'block',
-	}),
+	},
 })
 
 const SidebarMain = styled('div')({
@@ -53,18 +53,18 @@ const SidebarMain = styled('div')({
 	// overflow: 'overlay',
 	paddingTop: 'inherit',
 	paddingBottom: 'var(--size-menu, 4rem)',
-		scrollbarWidth: 'none',
+	scrollbarWidth: 'none',
 	'::-webkit-scrollbar': {
 		display: 'none',
 	},
-	...applyBackgroundColor(),
-	...minWidthFactor(3)({
+	backgroundColor: 'var(--color-bg, white)',
+	[minWidthFactor(3)]: {
 		position: 'absolute',
 		right: 0,
 		width: `calc(${configVar('base-width')} - var(--size-menu, 4rem))`,
 		marginLeft: 'auto',
 		paddingBottom: 0,
-	}),
+	},
 })
 
 const OpenSidebarMain = styled(SidebarMain)({
@@ -85,8 +85,8 @@ const SidebarMenu = styled('div')({
 	width: '100%',
 	height: 'var(--size-menu, 4rem)',
 	zIndex: 1,
-	...applyBackgroundColor(),
-	...minWidthFactor(3)({
+	backgroundColor: 'var(--color-bg, white)',
+	[minWidthFactor(3)]: {
 		top: 0,
 		marginLeft: 'auto',
 		position: 'absolute',
@@ -94,7 +94,7 @@ const SidebarMenu = styled('div')({
 		paddingTop: 'inherit',
 		overflow: 'auto',
 		zIndex: 'auto',
-	}),
+	},
 })
 
 const SidebarMenuSize = styled('div')({
@@ -103,21 +103,21 @@ const SidebarMenuSize = styled('div')({
 	height: '100%',
 	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	margin: '0 auto',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		maxWidth: 'none',
 		marginRight: 0,
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		alignItems: 'flex-end',
-	}),
+	},
 })
 
 const SidebarMenuGroup = styled('div')({
 	display: 'contents',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		width: '100%',
 		display: 'block',
-	}),
+	},
 })
 
 const MoreItems = styled('div')({
@@ -130,10 +130,10 @@ const MoreItems = styled('div')({
 	paddingBottom: 'var(--size-menu, 4rem)',
 	zIndex: -1,
 	boxSizing: 'border-box',
-	...applyBackgroundColor(),
-	...minWidthFactor(3)({
+	backgroundColor: 'var(--color-bg, white)',
+	[minWidthFactor(3)]: {
 		display: 'contents',
-	}),
+	},
 })
 
 const OpenMoreItems = styled(MoreItems)({
@@ -144,21 +144,21 @@ const MoreItemsScroll = styled('div')({
 	width: '100%',
 	height: '100%',
 	overflow: 'auto',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		display: 'contents',
-	}),
+	},
 })
 
 const MorePrimarySidebarMenuGroup = styled(SidebarMenuGroup)({
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		flex: 'auto',
-	}),
+	},
 })
 
 const MoreSecondarySidebarMenuGroup = styled(SidebarMenuGroup)({
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		order: 4,
-	}),
+	},
 })
 
 const SidebarMenuItem = styled('span')({
@@ -172,13 +172,13 @@ const SidebarMenuItem = styled('span')({
 		textDecoration: 'none',
 		width: '100%',
 	},
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		width: 'auto !important',
 		flex: '0 1 auto',
 		'> *': {
 			height: 'auto',
 		},
-	}),
+	},
 })
 
 const MoreSidebarMenuItem = styled('span')({
@@ -191,38 +191,38 @@ const MoreSidebarMenuItem = styled('span')({
 		textDecoration: 'none',
 		width: '100%',
 	},
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		width: 'auto !important',
 		flex: '0 1 auto',
-	}),
+	},
 })
 
 const MoreToggleSidebarMenuItem = styled(SidebarMenuItem)({
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		display: 'none',
-	}),
+	},
 })
 
 export const SidebarMenuItemIcon = styled('span')({
 	display: 'block',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		width: 'var(--size-menu, 4rem)',
 		height: 'var(--size-menu, 4rem)',
 		display: 'grid',
 		placeContent: 'center',
-	}),
+	},
 })
 
 export const MoreSidebarMenuItemIcon = styled('span')({
 	marginRight: '1rem',
 	display: 'block',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		width: 'var(--size-menu, 4rem)',
 		height: 'var(--size-menu, 4rem)',
 		display: 'grid',
 		placeContent: 'center',
 		marginRight: 0,
-	}),
+	},
 })
 
 export const SidebarMenuContainer = styled('span')({
@@ -231,7 +231,7 @@ export const SidebarMenuContainer = styled('span')({
 	placeContent: 'center',
 	width: '100%',
 	textAlign: 'center',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		display: 'flex',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
@@ -240,7 +240,7 @@ export const SidebarMenuContainer = styled('span')({
 		paddingRight: '1rem',
 		textAlign: 'left',
 		boxSizing: 'border-box',
-	}),
+	},
 })
 
 export const MoreSidebarMenuContainer = styled('div')({
@@ -252,11 +252,11 @@ export const MoreSidebarMenuContainer = styled('div')({
 	padding: '0 1rem',
 	textAlign: 'left',
 	boxSizing: 'border-box',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		marginRight: 0,
 		width: `${configVar('base-width')}`,
 		paddingLeft: 0,
-	}),
+	},
 })
 
 export const ContentContainer = styled('div')({
@@ -267,9 +267,9 @@ export const ContentContainer = styled('div')({
 	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	marginRight: 'auto',
 	marginLeft: 'auto',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		marginLeft: 0,
-	}),
+	},
 })
 
 export const SidebarMainContainer = styled('div')({
@@ -278,9 +278,9 @@ export const SidebarMainContainer = styled('div')({
 	width: '100%',
 	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	margin: '0 auto',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		maxWidth: 'none',
-	}),
+	},
 })
 
 type BaseMenuItem = {

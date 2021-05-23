@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import TopBar from '../../widgets/TopBar'
-import {applyBackgroundColor, minWidthFactor} from '../../utilities/mixins'
+import {minWidthFactor} from '../../utilities/mixins';
 import {configVar, loadConfig} from '../../utilities/helpers'
 
 const Config = createGlobalStyle({
@@ -11,17 +11,17 @@ const Config = createGlobalStyle({
 const DisableScrolling = createGlobalStyle({
 	'body': {
 		overflow: 'hidden',
-		...minWidthFactor(3)({
+		[minWidthFactor(3)]: {
 			overflow: 'auto',
-		}),
+		},
 	},
 })
 
 const ContentBase = styled('main')({
 	boxSizing: 'border-box',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		paddingLeft: `calc(50% - ${configVar('base-width')} * 0.5)`,
-	}),
+	},
 })
 
 const SidebarOverflow = styled('div')({
@@ -43,26 +43,27 @@ const SidebarBase = styled('div')({
 	width: '100%',
 	height: '100%',
 	overflow: 'hidden',
-	...applyBackgroundColor(),
-	...minWidthFactor(3)({
+	backgroundColor: 'var(--color-bg, white)',
+	[minWidthFactor(3)]: {
 		width: `calc(50% - ${configVar('base-width')} * 0.5)`,
 		left: 0,
-	}),
+	},
 })
 
 const OpenSidebarBase = styled(SidebarBase)({
 	left: 0,
 })
 
-export const SidebarContainer = styled('div')({
+export const SidebarMainContainer = styled('div')({
+	width: '100%',
 	margin: '0 auto',
 	padding: '0 1rem',
 	boxSizing: 'border-box',
 	maxWidth: `calc(${configVar('base-width')} * 2)`,
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		width: `${configVar('base-width')}`,
 		marginRight: 0,
-	}),
+	},
 })
 
 export const ContentContainer = styled('div')({
@@ -73,9 +74,9 @@ export const ContentContainer = styled('div')({
 	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	marginRight: 'auto',
 	marginLeft: 'auto',
-	...minWidthFactor(3)({
+	[minWidthFactor(3)]: {
 		marginLeft: 0,
-	}),
+	},
 })
 
 type Props = {
