@@ -1,8 +1,19 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom';
 import ReactMarkdown from 'react-markdown'
+import styled from 'styled-components';
 import Brand from '../../components/Brand';
 import { Basic } from '../../..';
+
+const TopBar = styled('div')({
+	backgroundColor: 'black',
+	color: 'white',
+	boxShadow: '0 0 0.25rem rgba(0,0,0,0.25)',
+	'a': {
+		color: 'inherit',
+		textDecoration: 'none',
+	}
+})
 
 const Page = () => {
 	return (
@@ -10,6 +21,7 @@ const Page = () => {
 			brand={
 				<Brand />
 			}
+			topBarComponent={TopBar}
 			topBarCenter={
 				<form
 					style={{

@@ -10,7 +10,12 @@ const Base = styled('div')({
 	width: '100%',
 	height: 'var(--height-topbar, 4rem)',
 	zIndex: 2,
-	backgroundColor: 'var(--color-bg, white)',
+	'> *': {
+		display: 'block',
+		width: '100%',
+		height: '100%',
+		backgroundColor: 'white',
+	},
 	'~ *': {
 		paddingTop: 'var(--height-topbar, 4rem)',
 	},
@@ -97,6 +102,7 @@ type Props = {
 	brand?: React.ReactNode,
 	menuLink?: React.ReactNode,
 	userLink?: React.ReactNode,
+	baseComponent?: React.ElementType,
 }
 
 const TopBar: React.FC<Props> = ({
@@ -105,41 +111,44 @@ const TopBar: React.FC<Props> = ({
 	menuLink,
 	userLink,
 	children,
+	baseComponent: BaseComponent = 'div',
 }) => {
 	const { [span as keyof typeof CONTAINER_COMPONENTS]: ContainerComponent = Container } = CONTAINER_COMPONENTS
 	return (
 		<Base>
-			<ContainerComponent>
-				{
-					Boolean(brand as unknown)
-					&& (
-						<BrandContainer>
-							{brand}
-						</BrandContainer>
-					)
-				}
-				<CenterContainer>
-					{children}
-				</CenterContainer>
-				<ActionContainer>
+			<BaseComponent>
+				<ContainerComponent>
 					{
-						Boolean(menuLink as unknown)
+						Boolean(brand as unknown)
 						&& (
-							<MenuLinkContainer>
-								{menuLink}
-							</MenuLinkContainer>
+							<BrandContainer>
+								{brand}
+							</BrandContainer>
 						)
 					}
-					{
-						Boolean(userLink as unknown)
-						&& (
-							<LinkContainer>
-								{userLink}
-							</LinkContainer>
-						)
-					}
-				</ActionContainer>
-			</ContainerComponent>
+					<CenterContainer>
+						{children}
+					</CenterContainer>
+					<ActionContainer>
+						{
+							Boolean(menuLink as unknown)
+							&& (
+								<MenuLinkContainer>
+									{menuLink}
+								</MenuLinkContainer>
+							)
+						}
+						{
+							Boolean(userLink as unknown)
+							&& (
+								<LinkContainer>
+									{userLink}
+								</LinkContainer>
+							)
+						}
+					</ActionContainer>
+				</ContainerComponent>
+			</BaseComponent>
 		</Base>
 	)
 }

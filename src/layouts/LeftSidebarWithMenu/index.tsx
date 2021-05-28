@@ -31,7 +31,6 @@ const SidebarBase = styled('div')({
 	overflow: 'hidden',
 	display: 'contents',
 	left: `calc(${configVar('base-width')} * -1)`,
-	backgroundColor: 'var(--color-bg, white)',
 	[minWidthFactor(3)]: {
 		position: 'fixed',
 		top: 0,
@@ -49,21 +48,31 @@ const SidebarMain = styled('div')({
 	right: '100%',
 	width: '100%',
 	height: '100%',
-	overflow: 'auto',
-	// overflow: 'overlay',
 	paddingTop: 'inherit',
 	paddingBottom: 'var(--size-menu, 4rem)',
-	scrollbarWidth: 'none',
-	'::-webkit-scrollbar': {
-		display: 'none',
-	},
-	backgroundColor: 'var(--color-bg, white)',
 	[minWidthFactor(3)]: {
 		position: 'absolute',
 		right: 0,
 		width: `calc(${configVar('base-width')} - var(--size-menu, 4rem))`,
 		marginLeft: 'auto',
 		paddingBottom: 0,
+	},
+	'> *': {
+		display: 'block',
+		width: '100%',
+		height: '100%',
+		backgroundColor: 'white',
+	},
+})
+
+const SidebarMainOverflow = styled('div')({
+	width: '100%',
+	height: '100%',
+	overflow: 'auto',
+	// overflow: 'overlay',
+	scrollbarWidth: 'none',
+	'::-webkit-scrollbar': {
+		display: 'none',
 	},
 })
 
@@ -85,7 +94,12 @@ const SidebarMenu = styled('div')({
 	width: '100%',
 	height: 'var(--size-menu, 4rem)',
 	zIndex: 1,
-	backgroundColor: 'var(--color-bg, white)',
+	'> *': {
+		display: 'block',
+		width: '100%',
+		height: '100%',
+		backgroundColor: 'white',
+	},
 	[minWidthFactor(3)]: {
 		top: 0,
 		marginLeft: 'auto',
@@ -130,7 +144,6 @@ const MoreItems = styled('div')({
 	paddingBottom: 'var(--size-menu, 4rem)',
 	zIndex: -1,
 	boxSizing: 'border-box',
-	backgroundColor: 'var(--color-bg, white)',
 	[minWidthFactor(3)]: {
 		display: 'contents',
 	},
@@ -306,6 +319,9 @@ type Props = {
 	moreLinkComponent: React.ElementType,
 	linkComponent: React.ElementType,
 	topBarCenter?: React.ReactChild,
+	topBarComponent?: React.ElementType,
+	sidebarMainComponent?: React.ElementType,
+	sidebarMenuComponent?: React.ElementType,
 }
 
 export const Layout: React.FC<Props> = ({
@@ -321,6 +337,9 @@ export const Layout: React.FC<Props> = ({
 	linkComponent: LinkComponent,
 	topBarCenter,
 	children,
+	topBarComponent: TopBarComponent = 'div',
+	sidebarMainComponent: SidebarMainWrapperComponent = 'div',
+	sidebarMenuComponent: SidebarMenuComponent = 'div',
 }) => {
 	const SidebarMainComponent = sidebarMainOpen ? OpenSidebarMain : SidebarMain
 	const MoreItemsComponent = moreItemsOpen ? OpenMoreItems : MoreItems
@@ -363,6 +382,7 @@ export const Layout: React.FC<Props> = ({
 							brand={brand}
 							menuLink={sidebarMain ? menuLink : undefined}
 							userLink={userLink}
+							baseComponent={TopBarComponent}
 						>
 							{topBarCenter}
 						</TopBar>
@@ -370,70 +390,11 @@ export const Layout: React.FC<Props> = ({
 				}
 				<SidebarBase>
 					<SidebarMenu>
-						<SidebarMenuSize>
-							<SidebarMenuGroup>
-								{visiblePrimarySidebarMenuItems.map((item) => {
-									return (
-										<SidebarMenuItem
-											key={item.id}
-										>
-											<LinkComponent
-												{...item}
-											/>
-										</SidebarMenuItem>
-									)
-								})}
-							</SidebarMenuGroup>
-							<MoreItemsComponent>
-								<MoreItemsScroll>
-									<MorePrimarySidebarMenuGroup>
-										{morePrimarySidebarMenuItems.map((item) => {
-											return (
-												<MoreSidebarMenuItem
-													key={item.id}
-												>
-													<MoreLinkComponent
-														{...item}
-													/>
-												</MoreSidebarMenuItem>
-											)
-										})}
-									</MorePrimarySidebarMenuGroup>
-									<MoreSecondarySidebarMenuGroup>
-										{moreSecondarySidebarMenuItems.map((item) => {
-											return (
-												<MoreSidebarMenuItem
-													key={item.id}
-												>
-													<MoreLinkComponent
-														{...item}
-													/>
-												</MoreSidebarMenuItem>
-											)
-										})}
-									</MoreSecondarySidebarMenuGroup>
-								</MoreItemsScroll>
-							</MoreItemsComponent>
-							{
-								(
-									morePrimarySidebarMenuItems.length > 0
-									|| moreSecondarySidebarMenuItems.length > 0
-								)
-								&& (
-									<MoreToggleSidebarMenuItem>
-										<SidebarMenuItem>
-											<LinkComponent
-												{...moreLinkMenuItem}
-											/>
-										</SidebarMenuItem>
-									</MoreToggleSidebarMenuItem>
-								)
-							}
-							{
-								visibleSecondarySidebarMenuItems.length > 0
-								&& (
-									<SidebarMenuGroup>
-										{visibleSecondarySidebarMenuItems.map((item) => (
+						<SidebarMenuComponent>
+							<SidebarMenuSize>
+								<SidebarMenuGroup>
+									{visiblePrimarySidebarMenuItems.map((item) => {
+										return (
 											<SidebarMenuItem
 												key={item.id}
 											>
@@ -441,17 +402,82 @@ export const Layout: React.FC<Props> = ({
 													{...item}
 												/>
 											</SidebarMenuItem>
-										))}
-									</SidebarMenuGroup>
-								)
-							}
-						</SidebarMenuSize>
+										)
+									})}
+								</SidebarMenuGroup>
+								<MoreItemsComponent>
+									<MoreItemsScroll>
+										<MorePrimarySidebarMenuGroup>
+											{morePrimarySidebarMenuItems.map((item) => {
+												return (
+													<MoreSidebarMenuItem
+														key={item.id}
+													>
+														<MoreLinkComponent
+															{...item}
+														/>
+													</MoreSidebarMenuItem>
+												)
+											})}
+										</MorePrimarySidebarMenuGroup>
+										<MoreSecondarySidebarMenuGroup>
+											{moreSecondarySidebarMenuItems.map((item) => {
+												return (
+													<MoreSidebarMenuItem
+														key={item.id}
+													>
+														<MoreLinkComponent
+															{...item}
+														/>
+													</MoreSidebarMenuItem>
+												)
+											})}
+										</MoreSecondarySidebarMenuGroup>
+									</MoreItemsScroll>
+								</MoreItemsComponent>
+								{
+									(
+										morePrimarySidebarMenuItems.length > 0
+										|| moreSecondarySidebarMenuItems.length > 0
+									)
+									&& (
+										<MoreToggleSidebarMenuItem>
+											<SidebarMenuItem>
+												<LinkComponent
+													{...moreLinkMenuItem}
+												/>
+											</SidebarMenuItem>
+										</MoreToggleSidebarMenuItem>
+									)
+								}
+								{
+									visibleSecondarySidebarMenuItems.length > 0
+									&& (
+										<SidebarMenuGroup>
+											{visibleSecondarySidebarMenuItems.map((item) => (
+												<SidebarMenuItem
+													key={item.id}
+												>
+													<LinkComponent
+														{...item}
+													/>
+												</SidebarMenuItem>
+											))}
+										</SidebarMenuGroup>
+									)
+								}
+							</SidebarMenuSize>
+						</SidebarMenuComponent>
 					</SidebarMenu>
 					{
 						(sidebarMain as unknown)
 						&& (
 							<SidebarMainComponent>
-								{sidebarMain}
+								<SidebarMainWrapperComponent>
+									<SidebarMainOverflow>
+										{sidebarMain}
+									</SidebarMainOverflow>
+								</SidebarMainWrapperComponent>
 							</SidebarMainComponent>
 						)
 					}

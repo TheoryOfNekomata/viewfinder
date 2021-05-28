@@ -3,6 +3,46 @@ import * as ReactDOM from 'react-dom';
 import ReactMarkdown from 'react-markdown';
 import Brand from '../../components/Brand';
 import { LeftSidebarWithMenu } from '../../..';
+import styled from 'styled-components';
+
+const SidebarMenuComponent = styled('div')({
+	'::after': {
+		content: "''",
+		position: 'absolute',
+		top: 0,
+		right: 0,
+		height: '100%',
+		width: '0.0625rem',
+		backgroundColor: 'currentcolor',
+		opacity: 0.25,
+		pointerEvents: 'none',
+	}
+})
+
+const SidebarMainComponent = styled('div')({
+	'::before': {
+		content: "''",
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		height: '100%',
+		width: '0.0625rem',
+		backgroundColor: 'currentcolor',
+		opacity: 0.25,
+		pointerEvents: 'none',
+	},
+	'::after': {
+		content: "''",
+		position: 'absolute',
+		top: 0,
+		right: 0,
+		height: '100%',
+		width: '0.0625rem',
+		backgroundColor: 'currentcolor',
+		opacity: 0.25,
+		pointerEvents: 'none',
+	}
+})
 
 const Page = () => {
 	const [sidebarMainOpen, setSidebarMainOpen] = React.useState(location.hash === '#sidebar')
@@ -23,6 +63,8 @@ const Page = () => {
 	return (
 		<LeftSidebarWithMenu.Layout
 			moreItemsOpen={moreItemsOpen}
+			sidebarMainComponent={SidebarMainComponent}
+			sidebarMenuComponent={SidebarMenuComponent}
 			sidebarMenuItems={[
 				{
 					id: 'foo',

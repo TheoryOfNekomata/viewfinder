@@ -1,8 +1,23 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom';
 import ReactMarkdown from 'react-markdown';
+import styled from 'styled-components';
 import Brand from '../../components/Brand';
 import { LeftSidebar } from '../../..';
+
+const SidebarMainComponent = styled('div')({
+	'::after': {
+		content: "''",
+		position: 'absolute',
+		top: 0,
+		right: 0,
+		height: '100%',
+		width: '0.0625rem',
+		backgroundColor: 'currentcolor',
+		opacity: 0.5,
+		pointerEvents: 'none',
+	}
+})
 
 const Page = () => {
 	const [sidebarMainOpen, setSidebarMainOpen] = React.useState(location.hash === '#sidebar')
@@ -78,6 +93,7 @@ const Page = () => {
 					</a>
 				</>
 			}
+			sidebarMainComponent={SidebarMainComponent}
 		>
 			<LeftSidebar.ContentContainer>
 				<ReactMarkdown

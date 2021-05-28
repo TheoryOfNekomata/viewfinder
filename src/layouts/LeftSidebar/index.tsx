@@ -42,8 +42,12 @@ const SidebarBase = styled('div')({
 	left: '-100%',
 	width: '100%',
 	height: '100%',
-	overflow: 'hidden',
-	backgroundColor: 'var(--color-bg, white)',
+	'> *': {
+		display: 'block',
+		width: '100%',
+		height: '100%',
+		backgroundColor: 'white',
+	},
 	[minWidthFactor(3)]: {
 		width: `calc(50% - ${configVar('base-width')} * 0.5)`,
 		left: 0,
@@ -86,6 +90,8 @@ type Props = {
 	menuLink?: React.ReactNode,
 	userLink?: React.ReactNode,
 	topBarCenter?: React.ReactChild,
+	topBarComponent?: React.ElementType,
+	sidebarMainComponent?: React.ElementType,
 }
 
 export const Layout: React.FC<Props> = ({
@@ -96,6 +102,8 @@ export const Layout: React.FC<Props> = ({
 	userLink,
 	topBarCenter,
 	children,
+	topBarComponent: TopBarComponent = 'div',
+	sidebarMainComponent: SidebarMainComponent = 'div',
 }) => {
 	const LeftSidebarComponent = sidebarMainOpen ? OpenSidebarBase : SidebarBase
 
@@ -113,13 +121,16 @@ export const Layout: React.FC<Props> = ({
 				brand={brand}
 				menuLink={menuLink}
 				userLink={userLink}
+				baseComponent={TopBarComponent}
 			>
 				{topBarCenter}
 			</TopBar>
 			<LeftSidebarComponent>
-				<SidebarOverflow>
-					{sidebarMain}
-				</SidebarOverflow>
+				<SidebarMainComponent>
+					<SidebarOverflow>
+						{sidebarMain}
+					</SidebarOverflow>
+				</SidebarMainComponent>
 			</LeftSidebarComponent>
 			<ContentBase>
 				{children}

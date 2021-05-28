@@ -25,7 +25,12 @@ const SidebarBase = styled('div')({
 		marginTop: -1,
 		boxSizing: 'border-box',
 	},
-	backgroundColor: 'var(--color-bg, white)',
+	'> *': {
+		display: 'block',
+		width: '100%',
+		height: '100%',
+		backgroundColor: 'white',
+	},
 	[minWidthFactor(3)]: {
 		position: 'absolute',
 		top: 0,
@@ -63,6 +68,8 @@ type Props = {
 	sidebarMain: React.ReactChild,
 	userLink?: React.ReactNode,
 	topBarCenter?: React.ReactChild,
+	topBarComponent?: React.ElementType,
+	sidebarMainComponent?: React.ElementType,
 }
 
 export const Layout: React.FC<Props> = ({
@@ -71,6 +78,8 @@ export const Layout: React.FC<Props> = ({
 	userLink,
 	topBarCenter,
 	children,
+	topBarComponent: TopBarComponent = 'div',
+	sidebarMainComponent: SidebarMainComponent = 'div',
 }) => {
 	return (
 		<>
@@ -86,6 +95,7 @@ export const Layout: React.FC<Props> = ({
 						span="wide"
 						brand={brand}
 						userLink={userLink}
+						baseComponent={TopBarComponent}
 					>
 						{topBarCenter}
 					</TopBar>
@@ -95,7 +105,9 @@ export const Layout: React.FC<Props> = ({
 				{children}
 			</ContentBase>
 			<SidebarBase>
-				{sidebarMain}
+				<SidebarMainComponent>
+					{sidebarMain}
+				</SidebarMainComponent>
 			</SidebarBase>
 		</>
 	)

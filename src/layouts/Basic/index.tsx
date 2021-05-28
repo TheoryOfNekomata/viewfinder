@@ -23,12 +23,14 @@ type Props = {
 	brand?: React.ReactNode,
 	userLink?: React.ReactNode,
 	topBarCenter?: React.ReactChild,
+	topBarComponent?: React.ElementType,
 }
 
 export const Layout: React.FC<Props> = ({
 	brand,
 	userLink,
 	topBarCenter,
+	topBarComponent = 'div',
 	children,
 }) => {
 	return (
@@ -44,6 +46,7 @@ export const Layout: React.FC<Props> = ({
 					<TopBar
 						brand={brand}
 						userLink={userLink}
+						baseComponent={topBarComponent}
 					>
 						{topBarCenter}
 					</TopBar>
