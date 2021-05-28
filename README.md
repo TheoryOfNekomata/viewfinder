@@ -51,12 +51,15 @@ const Page: React.FC = ({
 export default Page
 ```
 
+Other examples can be found in the `example` directory in the repository. Please check them out for hints
+on styling and using the different available layouts.
+
 The available props per layout are included as a TypeScript declarations file.
 
 ## Configuration
 
 There are CSS variables that can be declared in the parent of the `*.Layout` components
-(preferably `:root`) for customizing the metrics and colors of the layout:
+(preferably `:root`) for customizing the metrics of the layout:
 
 ### `--height-topbar`
 
