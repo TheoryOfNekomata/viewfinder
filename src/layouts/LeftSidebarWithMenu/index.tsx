@@ -50,6 +50,7 @@ const SidebarMain = styled('div')({
 	height: '100%',
 	paddingTop: 'inherit',
 	paddingBottom: 'var(--size-menu, 4rem)',
+	zIndex: 2,
 	[minWidthFactor(3)]: {
 		position: 'absolute',
 		right: 0,
