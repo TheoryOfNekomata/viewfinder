@@ -71,6 +71,8 @@ const SidebarMainOverflow = styled('div')({
 	overflow: 'auto',
 	// overflow: 'overlay',
 	scrollbarWidth: 'none',
+	position: 'relative',
+	zIndex: 1,
 	'::-webkit-scrollbar': {
 		display: 'none',
 	},
@@ -117,6 +119,8 @@ const SidebarMenuSize = styled('div')({
 	height: '100%',
 	maxWidth: `calc(${configVar('base-width')} * 2)`,
 	margin: '0 auto',
+	position: 'relative',
+	zIndex: 1,
 	[minWidthFactor(3)]: {
 		maxWidth: 'none',
 		marginRight: 0,

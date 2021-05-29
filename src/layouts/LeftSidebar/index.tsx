@@ -29,6 +29,8 @@ const SidebarOverflow = styled('div')({
 	height: '100%',
 	overflow: 'auto',
 	// overflow: 'overlay',
+	position: 'relative',
+	zIndex: 1,
 	scrollbarWidth: 'none',
 	'::-webkit-scrollbar': {
 		display: 'none',

@@ -38,6 +38,8 @@ const Container = styled('div')({
 	height: '100%',
 	display: 'flex',
 	alignItems: 'center',
+	position: 'relative',
+	zIndex: 1,
 })
 
 const NarrowContainer = styled(Container)({

@@ -40,6 +40,11 @@ const SidebarBase = styled('div')({
 	},
 })
 
+const SidebarMainContent = styled('div')({
+	position: 'relative',
+	zIndex: 1,
+})
+
 export const SidebarMainContainer = styled('div')({
 	padding: '0 1rem',
 	boxSizing: 'border-box',
@@ -106,7 +111,9 @@ export const Layout: React.FC<Props> = ({
 			</ContentBase>
 			<SidebarBase>
 				<SidebarMainComponent>
-					{sidebarMain}
+					<SidebarMainContent>
+						{sidebarMain}
+					</SidebarMainContent>
 				</SidebarMainComponent>
 			</SidebarBase>
 		</>
